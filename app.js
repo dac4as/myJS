@@ -17,12 +17,14 @@ app.get('/', function (req, res){//metodo get: OGNI COLTA che qualcuno apre un S
 
 //in pratica il client passerà al server una stringa (o un dato) chiamato e visualizzabile tramite idProdotto
 app.get('/dettaglio/:idProdotto', (req,res)=>{//un modo per rendere la rotta dinamica in expressjs (si porta dietro un parametro) esiste in più meccanismi in vari linguaggi (tipo C# usa ("{PARAMETRO}")), anche in springboot è diverso
-console.log(req.params);//ottengo la stringa che mi è stata passata dal client (FIGO)
-res.send('Prodotto inserito');//il server da come risposta la seguente stringa al browser/client
+  console.log(req.params);//ottengo la stringa che mi è stata passata dal client (FIGO)
+  res.send('Prodotto inserito');//il server da come risposta la seguente stringa al browser/client
 })
 
-
-
+app.get('/tecantonacanzone', (req,res)=>{
+  console.log('Che voi da me? Te posso cantà na canzone');
+  res.send('https://www.youtube.com/watch?v=tVP8XlBWYBM');
+})
 
   //dopo aver costruito tutte le promise e callback, il server può avviarsi
 
