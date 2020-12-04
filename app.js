@@ -1,7 +1,10 @@
 // server.js File 
 const express = require('express'); //require() è una funzione equivalente all'import di Java o #include di C++ (in js qualsiasi cosa è una funzione) in pratica è una funzione che importa la libreria express (che ho insiallato con l'apposito comando npm)
+const handlebars = require('handlebars'); 
+
+
 const app = express(); // costruisco un'ISTANZA del mio server web, chiamato app (in app c'è il riferimento al server web). Queso al fine di istruirlo con le dovute funzioni prima di farlo partire
-  
+ 
 const port = 3000;  // Setting an port for this application 
   
   
@@ -17,8 +20,15 @@ app.get('/', function (req, res){//metodo get: OGNI COLTA che qualcuno apre un S
 
 //in pratica il client passerà al server una stringa (o un dato) chiamato e visualizzabile tramite idProdotto
 app.get('/dettaglio/:idProdotto', (req,res)=>{//un modo per rendere la rotta dinamica in expressjs (si porta dietro un parametro) esiste in più meccanismi in vari linguaggi (tipo C# usa ("{PARAMETRO}")), anche in springboot è diverso
-  console.log(req.params);//ottengo la stringa che mi è stata passata dal client (FIGO)
-  res.send('Prodotto inserito');//il server da come risposta la seguente stringa al browser/client
+                                              //con handlebars questa funzione assume il ruolo di controller nel modello MVC  
+var model ={
+    nomeProdotto : req.params.idProdotto
+  }
+  const template = handlebars.compile("Nome prodotto: {{nomeProdotto}}");//(view)SI PUO' FARE solo se è stata installata la dipendenza handlebars, questo è un template di handlebars, sto dicendo che la risorsa che devo far visualizzare nella stringa si chiama nomeProdotto, e si recupera come specificato da var model
+  
+
+  console.log(req.params);//ottengo la stringa che mi è stata passata dal client (FIGO) e la visualizzo sulla console
+  res.send(template(model));//il server da come risposta la seguente stringa al browser/client
 })
 
 app.get('/tecantonacanzone', (req,res)=>{
